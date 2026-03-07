@@ -276,16 +276,59 @@ Maintains an experience memory of past actions with outcomes. Computes domain tr
 
 ---
 
+## Engine 8: Resonance (Cognitive Coherence)
+
+**Date:** March 7, 2026
+**Files:** `CognitiveCoherence.swift`
+
+### 8.1 Peer-to-Peer Cognitive Modulation Field
+
+Five independent cognitive systems (NegativeSpaceDetector, InverseRewardModel, QuantumIntentField, CognitiveMetabolism, NarrativeEngine) sample each other's state and compute cross-modulations — excitatory and inhibitory connections that produce emergent coherent behavior. Not a controller, not an orchestrator — a resonance field computed once per request.
+
+Six cross-modulations:
+- **Metabolism gates absence reporting** — flow state suppresses absences (don't interrupt), consolidation amplifies them (time to reflect)
+- **Narrative trust weights preference reliability** — high domain trust follows preferences closely, low trust overrides toward safety
+- **Intent entropy overrides metabolic state** — high uncertainty forces diffuse mode even if metabolism says "focused"
+- **Preferences modulate absence verbosity** — concise-preference users get single-line gap summaries, detailed-preference users get full analysis
+- **Absence domains boost intent hypotheses** — detected knowledge gaps bias intent disambiguation toward related domains
+- **Narrative boldness blends with metabolic boldness** — geometric mean prevents either system from dominating caution/aggression
+
+**Novel:** Every AI system has modules. Some have pipelines. Some have controllers. No system has peer-to-peer cognitive modulation where metabolic state changes how absence detection works, where trust history changes how preferences are weighted, where intent uncertainty changes which cognitive regime is active. This is how biological brains work — resonance, not pipelines.
+
+### 8.2 Coherence-Gated Context Injection
+
+Instead of unconditionally injecting all cognitive system outputs into the LLM prompt (wasting tokens on irrelevant signals), the Resonance Engine gates each injection based on the coherence field. Under token pressure, lower-value systems are dropped first.
+
+**Novel:** AI agents inject all available context. None selectively gate cognitive system outputs based on cross-system coherence state and token budget pressure.
+
+### 8.3 Coherence-Driven Planning Strategy Selection
+
+The coherence field generates bias weights for the MetaPlanner's Thompson sampling. High intent entropy pushes toward goal-chain planning (explicit steps). Creative metabolism pushes toward MCTS (exploration). High domain trust + focused state pushes toward direct execution.
+
+**Novel:** Planning strategy selection in AI agents is either fixed or based on simple heuristics. This is the first system where planning strategy is influenced by a synthesized signal from five independent cognitive subsystems.
+
+### 8.4 Coherence-Aware Autonomous Background Decisions
+
+The BackgroundAgent's LLM decision (WAIT/ALERT/SPEAK/ACT) receives coherence context: in flow state it avoids interruptions, in consolidation it surfaces insights, boldness level adjusts the action threshold.
+
+**Novel:** Background agent decision-making that adapts to the agent's own cognitive state. No known system has autonomous background agents whose action thresholds are modulated by a multi-system coherence field.
+
+---
+
 ## Cross-Engine Integration (the full innovation)
 
-The seven engines are not independent — they form a unified cognitive architecture:
+The eight engines are not independent — they form a unified cognitive architecture:
 
 ```
 User Input
   → QuantumIntentField (probabilistic intent with disambiguation)
   → InverseRewardModel (behavioral signals + preference lookup)
   → CognitiveMetabolism (select cognitive state → processing parameters)
-  → ContextEngine (47 context sections from all engines)
+  → CognitiveCoherence (sample all 5 alien systems → cross-modulation field)
+    → Gates context injection (suppress irrelevant signals)
+    → Biases MetaPlanner strategy (coherence → planning)
+    → Modulates BackgroundAgent decisions (coherence → autonomy)
+  → ContextEngine (47+ context sections from all engines)
   → WorkflowEngine (tool dispatch with full ATR pipeline)
     → BayesianUncertainty (posterior updates per tool)
     → CausalFlowTracker (prove tool→response grounding)
@@ -293,14 +336,14 @@ User Input
     → NegativeSpaceDetector (flag meaningful absences)
   → NarrativeEngine (record experience + update story arc)
   → IntelligenceROI (measure which engines contributed)
-  → DreamingBrain (38-phase background consolidation cycle)
+  → DreamingBrain (39-phase background consolidation cycle)
     → Pattern discovery, insight generation, gap detection
     → Counterfactual regret analysis, skill forging
     → Template evolution, preference consolidation
-    → Belief auditing, ROI optimization
+    → Belief auditing, ROI optimization, coherence calibration
 ```
 
-**No known AI system implements this level of cognitive integration.** Individual concepts exist in research (Bayesian uncertainty, predictive coding, inverse reward learning, narrative cognition). Their integration into a single, production-running, self-improving autonomous agent is unprecedented.
+**No known AI system implements this level of cognitive integration.** Individual concepts exist in research (Bayesian uncertainty, predictive coding, inverse reward learning, narrative cognition). Their integration into a single, production-running, self-improving autonomous agent with a peer-to-peer resonance field is unprecedented.
 
 ---
 
@@ -309,10 +352,10 @@ User Input
 - **Total codebase:** 120,000+ lines of Swift
 - **Binary symbols:** 360,000+ symbols in compiled binary
 - **Build verified:** Xcode clean build with 0 errors (March 7, 2026)
-- **Runtime verified:** All 7 engines active in production logs
+- **Runtime verified:** All 8 engines active in production logs
 - **All engines feature-flagged:** Each can be independently enabled/disabled
 - **Persistence:** Each engine saves/loads state to disk across sessions
-- **Dream integration:** DreamingBrain phases 24-38 consolidate all engine states
+- **Dream integration:** DreamingBrain phases 24-39 consolidate all engine states
 
 ---
 
@@ -340,6 +383,10 @@ User Input
 | Intelligence ROI | No | Measures value of each cognitive subsystem |
 | Narrative continuity | No (memory ≠ narrative) | Persistent story arc across sessions |
 | Antifragile adaptation | No (agents log failures) | Converts failures into domain-specific antibodies |
+| Peer-to-peer cognitive modulation | No (all use pipelines/controllers) | Cross-system resonance field where each system modulates others |
+| Coherence-gated context injection | No (agents inject all context) | Token-budget-aware selective injection based on coherence state |
+| Coherence-driven planning | No (fixed or simple heuristics) | Planning strategy biased by synthesized 5-system coherence signal |
+| Coherence-aware background autonomy | No | Background agent decisions modulated by multi-system coherence field |
 
 ---
 
