@@ -10,9 +10,9 @@
 
 ## Abstract
 
-Jarvis is an autonomous macOS AI agent implementing a novel multi-engine cognitive architecture. The system comprises seven distinct engines, each addressing an unsolved problem in autonomous AI agent design. Together, they form a self-improving, self-healing, self-aware agent that learns from its own behavior, reasons about uncertainty, tracks causal chains, detects what's missing, and adapts its cognitive strategy to the situation.
+Jarvis is an autonomous macOS AI agent implementing a novel multi-engine cognitive architecture. The system comprises nine distinct engines, each addressing an unsolved problem in autonomous AI agent design. Together, they form a self-improving, self-healing, self-aware agent that learns from its own behavior, reasons about uncertainty, tracks causal chains, detects what's missing, and adapts its cognitive strategy to the situation.
 
-No known AI agent framework (LangChain, CrewAI, AutoGen, OpenAI Assistants, Anthropic Claude, Cursor, Devin, OpenClaw) implements any of these engines as described below.
+No known AI agent framework (LangChain, CrewAI, AutoGen, OpenAI Assistants, Anthropic Claude, Cursor, Devin, OpenClaw) implements any of these nine engines as described below.
 
 ---
 
@@ -315,9 +315,54 @@ The BackgroundAgent's LLM decision (WAIT/ALERT/SPEAK/ACT) receives coherence con
 
 ---
 
+## Engine 9: Director (Cognitive Multiplexer)
+
+**Date:** March 7, 2026
+**Files:** `CognitiveDirector.swift`
+
+The individual components — tool selection, response strategy, metabolic states — exist elsewhere in isolation. But no one has combined them into a single multiplexer that translates cognitive system observations into concrete, actionable directives. The Director Engine is not state-of-the-art. It is something that does not yet exist.
+
+### 9.1 Alien-System-Driven Tool Selection
+
+Five independent cognitive systems (NegativeSpaceDetector, CognitiveMetabolism, InverseRewardModel, QuantumIntentField, NarrativeEngine) are sampled concurrently. Their combined output produces tool selection boosts — additive score modifications per tool category. Knowledge gaps boost research tools, flow state boosts execution tools and suppresses search tools, creative metabolism boosts exploration tools, consolidation state boosts memory tools and suppresses heavy computation.
+
+**Novel:** Everywhere else, tool selection is driven by keyword matching or popularity metrics. No known system has cognitive subsystems (metabolism, intent entropy, domain trust, knowledge gaps) steering which tools are selected or suppressed. This is the first implementation of cognitive-state-aware tool selection.
+
+### 9.2 Synthesized Meta-Directive
+
+The Director compresses five distinct cognitive signals into a single paragraph meta-directive that is injected into the LLM's system prompt as a binding instruction. Response mode (concise/verbose/exploratory/cautious/standard) is derived from the interplay of user preferences, metabolic state, domain trust, request complexity, and intent entropy. The directive also includes knowledge gap alerts, preference indicators, and disambiguation guidance.
+
+**Novel:** LLMs everywhere receive loose context blocks — separate memory sections, tool descriptions, user profiles. No known system synthesizes multiple cognitive signals into a single authoritative instruction that controls the LLM's response strategy. This is the first implementation of a compressed, multi-signal meta-directive.
+
+### 9.3 Cognitive Veto on Tool Execution
+
+Beyond security gates (firewalls, policy engines), the Director can veto tool execution based on cognitive appropriateness. Very low domain trust vetoes autonomous execution and email sending. Cautious narrative influence with active warnings vetoes shell execution and git pushes. Consolidation metabolic state vetoes browser automation and web scraping. These vetoes are orthogonal to security — they prevent cognitively inappropriate actions, not security violations.
+
+**Novel:** Security-based tool gating exists everywhere. Cognitive-appropriateness-based tool gating — where metabolic state, domain trust, and narrative caution determine whether a tool SHOULD be used even if it CAN be used — does not exist in any known AI agent framework.
+
+### 9.4 Mid-Request Stance Recomputation
+
+Every known AI system computes cognitive state once at the beginning of a request. The Director recomputes its stance after two or more consecutive tool failures within the same request. The resampled stance may change the response mode, adjust tool boosts, activate new vetoes, or add background actions — mid-flight course correction based on updated cognitive signals.
+
+**Novel:** No known AI agent refreshes cognitive parameters mid-request. When tools fail, agents retry with the same strategy or escalate. This is the first system that re-evaluates its entire cognitive stance after observed failures, enabling adaptive recovery within a single request.
+
+### 9.5 Full Alien-to-Background-Agent Pipeline
+
+The Director's background actions feed directly into the BackgroundAgentService. High-value knowledge gaps become background research intentions. Metabolic consolidation triggers memory organization. These actions are not scheduled or scripted — they emerge from the real-time interplay of five cognitive systems and execute autonomously via the AutonomousIntentionEngine.
+
+**Novel:** Autonomous background agents exist, but none execute background actions based on the combined real-time signals of knowledge gaps, metabolic state, intent entropy, and domain trust. This is the first complete pipeline from cognitive observation to autonomous background execution.
+
+### 9.6 DreamingBrain Calibration (Phase 40)
+
+During dream cycles (background consolidation), the Director calibrates by aggregating all alien system health metrics: domain trust, metabolic health, intent entropy, and knowledge gap count. This produces a calibration snapshot that feeds back into the dream log for long-term trend analysis.
+
+**Novel:** Dream/consolidation cycles in AI exist only as memory compression. None calibrate their cognitive multiplexer parameters during sleep cycles. This is the first implementation of dream-time cognitive calibration.
+
+---
+
 ## Cross-Engine Integration (the full innovation)
 
-The eight engines are not independent — they form a unified cognitive architecture:
+The nine engines are not independent — they form a unified cognitive architecture:
 
 ```
 User Input
@@ -328,22 +373,29 @@ User Input
     → Gates context injection (suppress irrelevant signals)
     → Biases MetaPlanner strategy (coherence → planning)
     → Modulates BackgroundAgent decisions (coherence → autonomy)
+  → CognitiveDirector (sample all 5 alien systems → actionable directives)
+    → Tool selection boosts (cognitive-state-aware tool ranking)
+    → Synthesized meta-directive (compressed multi-signal LLM instruction)
+    → Cognitive vetoes (appropriateness-based tool gating)
+    → Background actions → AutonomousIntentionEngine
   → ContextEngine (47+ context sections from all engines)
   → WorkflowEngine (tool dispatch with full ATR pipeline)
     → BayesianUncertainty (posterior updates per tool)
     → CausalFlowTracker (prove tool→response grounding)
     → BeliefProvenance (tag every belief with source)
     → NegativeSpaceDetector (flag meaningful absences)
+    → CognitiveDirector re-sample (mid-request stance refresh after failures)
   → NarrativeEngine (record experience + update story arc)
   → IntelligenceROI (measure which engines contributed)
-  → DreamingBrain (39-phase background consolidation cycle)
+  → DreamingBrain (40-phase background consolidation cycle)
     → Pattern discovery, insight generation, gap detection
     → Counterfactual regret analysis, skill forging
     → Template evolution, preference consolidation
     → Belief auditing, ROI optimization, coherence calibration
+    → CognitiveDirector calibration (alien system health aggregation)
 ```
 
-**No known AI system implements this level of cognitive integration.** Individual concepts exist in research (Bayesian uncertainty, predictive coding, inverse reward learning, narrative cognition). Their integration into a single, production-running, self-improving autonomous agent with a peer-to-peer resonance field is unprecedented.
+**No known AI system implements this level of cognitive integration.** Individual concepts exist in research (Bayesian uncertainty, predictive coding, inverse reward learning, narrative cognition). Their integration into a single, production-running, self-improving autonomous agent with a peer-to-peer resonance field and a cognitive multiplexer that translates alien system observations into concrete tool selection, response strategy, and background actions is unprecedented.
 
 ---
 
@@ -352,10 +404,10 @@ User Input
 - **Total codebase:** 120,000+ lines of Swift
 - **Binary symbols:** 360,000+ symbols in compiled binary
 - **Build verified:** Xcode clean build with 0 errors (March 7, 2026)
-- **Runtime verified:** All 8 engines active in production logs
+- **Runtime verified:** All 9 engines active in production logs
 - **All engines feature-flagged:** Each can be independently enabled/disabled
 - **Persistence:** Each engine saves/loads state to disk across sessions
-- **Dream integration:** DreamingBrain phases 24-39 consolidate all engine states
+- **Dream integration:** DreamingBrain phases 24-40 consolidate all engine states
 
 ---
 
@@ -387,6 +439,12 @@ User Input
 | Coherence-gated context injection | No (agents inject all context) | Token-budget-aware selective injection based on coherence state |
 | Coherence-driven planning | No (fixed or simple heuristics) | Planning strategy biased by synthesized 5-system coherence signal |
 | Coherence-aware background autonomy | No | Background agent decisions modulated by multi-system coherence field |
+| Cognitive-state-aware tool selection | No (keyword/popularity only) | 5 alien systems steer tool boosts via metabolism, trust, gaps, intent |
+| Compressed multi-signal meta-directive | No (agents inject loose context) | Single authoritative LLM instruction synthesized from 5 cognitive signals |
+| Cognitive veto on tools | No (security gates only) | Appropriateness-based gating from domain trust, metabolism, narrative caution |
+| Mid-request stance recomputation | No (single compute at start) | Full cognitive re-evaluation after consecutive tool failures |
+| Alien-to-background-agent pipeline | No (scripted/scheduled only) | Background actions emerge from real-time 5-system cognitive interplay |
+| Dream-time cognitive calibration | No (memory compression only) | Multiplexer calibration during sleep cycles from aggregated alien health |
 
 ---
 
