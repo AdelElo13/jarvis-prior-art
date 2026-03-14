@@ -69,14 +69,61 @@ Six cross-modulations:
 
 ---
 
-### 1.4 ProcessSymbiosis — AXObserver-Based App Integration
+### 1.4 ProcessSymbiosis — Event-Driven Accessibility Computer Use
 
 **Date:** March 7, 2026
 **Files:** `ProcessSymbiosis.swift`
 
-Uses macOS Accessibility Observer (AXObserver) as the primary interface to running applications. Real-time notification of app state changes, window focus, element creation/destruction. Provides structured, semantic access to UI elements.
+Uses macOS AXObserver as an **event-driven** interface to running applications. Registers for push notifications (kAXFocusedUIElementChangedNotification, kAXValueChangedNotification, kAXCreatedNotification) and maintains a persistent, incrementally-updated AppUIModel from the accessibility event stream. The LLM receives a semantic UI model, not screenshots.
 
-**Novelty claim:** Every known AI agent implementing "computer use" (Anthropic, OpenAI, Google) uses pixels — screenshot, OCR, click coordinates. AXObserver provides structured, semantic access to UI elements. No known production AI agent uses accessibility APIs as the primary computer use interface.
+**Acknowledgment:** Microsoft UFO (2024-2025) uses Windows UI Automation APIs for AI agent computer control, establishing prior art for the broad concept of accessibility-API-based computer use. UFO queries the UIA tree on demand (polling).
+
+**Novelty claim:** ProcessSymbiosis is **event-driven** (push-based AXObserver callbacks), not poll-based. It builds and maintains a **persistent semantic AppUIModel** incrementally updated from a live event stream. The pipeline — event stream → semantic model → LLM-driven action selection → accessibility actions — as a unified architecture is distinct from UFO's query-based approach. We do NOT claim the broad concept of accessibility-API-based computer use.
+
+---
+
+### 1.5 ATR (Autonomous Tool Reliability) — Unified Dispatch Pipeline
+
+**Date:** March 6-7, 2026
+**Files:** `ToolContract.swift`, `OutputSchemaValidator.swift`, `EffectVerifier.swift`, `SandboxTestPipeline.swift`, `ErrorMemoryBank.swift`
+
+A unified reliability pipeline integrated into the tool dispatch loop, comprising five subsystems that work together on every tool execution:
+
+**ToolContract — Auto-Generated Per-Tool Reliability Contracts**
+
+Structured, persistent contracts auto-generated from live SLO metrics for every tool. Each contract specifies timeout, retry policy, fallback chain, output schema, effect verification requirements, risk classification, dry-run support, and consensus requirements. Contracts are generated and updated from runtime metrics — not manually authored.
+
+**Novelty claim:** LangChain has manual retry configuration. No known AI agent framework auto-generates per-tool reliability contracts from runtime SLO data. The auto-generation from live metrics is the key differentiator.
+
+**OutputSchemaValidator — Post-Execution Output Validation**
+
+Validates tool output against the contract's declared schema (type, length bounds, required JSON fields, format compliance) after every execution. Rejects outputs that don't match the declared contract.
+
+**EffectVerifier — Independent Side-Effect Verification**
+
+After a tool reports success, independently confirms the side effect actually occurred. Verification types: `fileExists`, `fileContentHash`, `processExitCode`, `gitRefExists`, `httpEndpointReachable`, `directoryNotEmpty`. Detects "silent failures" where a tool claims success but the effect didn't happen.
+
+**Novelty claim:** Every known AI agent framework trusts tool return values. No known system independently verifies that claimed side effects actually occurred in the external world. Verity and SafeAgent address exactly-once execution (preventing duplicate actions) but do not verify that the claimed effect is real.
+
+**SandboxTestPipeline — Automated QA for AI-Synthesized Tools**
+
+When the agent creates new tools for itself (via SkillForge), this pipeline tests them before promotion to production. Generates test cases from historical execution data, requires ≥80% pass rate with ≥3 tests before a tool is promoted.
+
+**Novelty claim:** LATM and CREATOR (2023) enable LLMs to create tools but provide no verification beyond "does it produce the right answer." No known system applies sandbox testing with generated test cases and pass-rate gating to AI-synthesized tools.
+
+**ErrorMemoryBank — Pre-Flight Failure Pattern Check**
+
+Before tool execution, checks whether this exact tool+arguments combination (or similar pattern) has failed before. Prevents re-execution of known-bad combinations and surfaces relevant error context from prior failures.
+
+**Integrated ATR Pipeline**
+
+```
+ErrorMemoryBank pre-flight → ToolContract lookup → Tool execution (timeout)
+  → SLO recording → Output validation → Schema validation → Effect verification
+    → Cache on success / Fallback chain on failure / Auto-retry on transient
+```
+
+**Novelty claim (pipeline):** No known AI agent framework integrates error memory pre-flight, auto-generated reliability contracts, output/schema validation, independent effect verification, and SLO-driven fallback into a single unified dispatch loop. LangChain has basic retry/fallback. Verity has exactly-once execution. The SAFE-AI Framework (2025) proposes a conceptual taxonomy but does not implement this specific pipeline. The full integrated system — where every tool call passes through all five stages — has no known prior art.
 
 ---
 
@@ -209,12 +256,7 @@ For complex queries, runs 3-4 reasoning perspectives in parallel: Analytical (de
 
 The following systems use well-established techniques. They are documented here for completeness but we do not claim novelty for the underlying approaches.
 
-### 3.1 ATR (Autonomous Tool Reliability)
-Per-tool reliability contracts, output schema validation, side-effect verification, fallback chains. Uses known SRE concepts applied to AI tool dispatch.
-
-**Acknowledgment:** LangChain health-aware middleware, Verity (exactly-once execution), SafeAgent provide similar capabilities.
-
-### 3.2 Fortress (Defense & Recovery)
+### 3.1 Fortress (Defense & Recovery)
 Prompt injection defense, crash recovery with checkpointing, unified policy enforcement with graduated risk assessment.
 
 ### 3.3 Bayesian Uncertainty
@@ -248,7 +290,8 @@ User Input
   → CognitiveDirector (5 systems → tool boosts, meta-directive, vetoes)
   → PredictiveCortex pre-flight brief (self-awareness injection)
   → FreeEnergyCore (surprisal → resource allocation)
-  → WorkflowEngine (tool dispatch)
+  → WorkflowEngine (tool dispatch with ATR pipeline)
+    → ErrorMemoryBank pre-flight → ToolContract → Execute → Validate → Verify
     → CognitiveEEG (real-time regime: flow/cautious/deliberate/emergency)
     → FailureOracle (predictive risk per step)
     → CounterfactualEngine (alternative generation + post-hoc regret)
@@ -284,7 +327,10 @@ User Input
 | Neuromorphic timer mesh | No known prior art in AI agents | Single coordinated pulse with multi-dimensional gating + circadian learning |
 | 5 metabolic cognitive states | System 1/2 binary distinction | Five states with distinct parameter profiles + biological service lifecycle |
 | Peer-to-peer cognitive modulation | Pipeline/controller architectures | Bidirectional excitatory/inhibitory cross-modulation between subsystems |
-| AXObserver computer use | Screenshot+OCR+click (all known systems) | Semantic accessibility API as primary interface |
+| AXObserver computer use | Microsoft UFO uses Windows UIA (poll-based) | Event-driven push notifications + persistent semantic AppUIModel |
+| ATR unified pipeline | LangChain: manual retry. Verity: exactly-once. SAFE-AI: taxonomy only | Auto-generated contracts from SLO + effect verification + sandbox testing in unified loop |
+| ATR: EffectVerifier | No known prior art | Independent verification that tool side effects actually occurred |
+| ATR: SandboxTestPipeline | LATM/CREATOR create tools without testing | Sandbox testing with generated test cases + pass-rate gating for AI-synthesized tools |
 | Free energy core | FEP well-established in neuroscience | Production implementation in AI agent with surprisal-based resource allocation |
 | Evolutionary tool synthesis | Tool creation exists; evolutionary algorithms exist | Full evolutionary lifecycle applied to AI-synthesized tools |
 | Conditional failure prediction | SRE monitoring; reactive retry | Predictive P(failure) with time/cascade-aware conditional risk |

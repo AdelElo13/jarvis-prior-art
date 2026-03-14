@@ -31,12 +31,13 @@ We do **not** claim novelty for well-established concepts. See "What We Do Not C
 | 2 | **CircadianLearner** | Novel architecture | Per-task per-hour adaptive scheduling that learns when background work is useful |
 | 3 | **CognitiveMetabolism** | Novel architecture | 5 metabolic cognitive states (Focused/Diffuse/Flow/Consolidation/Creative) with distinct processing parameters |
 | 4 | **Peer-to-Peer Cognitive Modulation** | Novel architecture | 5 cognitive systems cross-modulate each other via excitatory/inhibitory connections — resonance, not pipeline |
-| 5 | **Cognitive Veto on Tools** | Novel combination | Tool gating based on cognitive appropriateness (domain trust, metabolic state), orthogonal to security policy |
-| 6 | **ProcessSymbiosis (AXObserver)** | Novel approach | Semantic UI access via macOS Accessibility API vs screenshot+OCR+click used by all known "computer use" systems |
-| 7 | **Free Energy Minimization Core** | Novel application | Production implementation of Friston's FEP in an AI agent with surprisal-based resource allocation |
-| 8 | **SkillForge** | Novel combination | Full evolutionary lifecycle for AI-synthesized tools: fitness tracking, promotion, retirement, mutation |
-| 9 | **FailureOracle** | Novel combination | Predictive P(failure) per tool step with time-aware, cascade-aware conditional risk modeling |
-| 10 | **CounterfactualEngine** | Novel application | Post-execution regret computation against unchosen alternatives for systematic decision learning |
+| 5 | **ProcessSymbiosis (AXObserver)** | Novel architecture | Event-driven accessibility computer use with persistent semantic AppUIModel (distinct from Microsoft UFO's poll-based approach) |
+| 6 | **ATR Unified Pipeline** | Novel architecture | Auto-generated tool contracts from SLO metrics + independent side-effect verification + sandbox testing of AI-created tools |
+| 7 | **Cognitive Veto on Tools** | Novel combination | Tool gating based on cognitive appropriateness (domain trust, metabolic state), orthogonal to security policy |
+| 8 | **Free Energy Minimization Core** | Novel application | Production implementation of Friston's FEP in an AI agent with surprisal-based resource allocation |
+| 9 | **SkillForge** | Novel combination | Full evolutionary lifecycle for AI-synthesized tools: fitness tracking, promotion, retirement, mutation |
+| 10 | **FailureOracle** | Novel combination | Predictive P(failure) per tool step with time-aware, cascade-aware conditional risk modeling |
+| 11 | **CounterfactualEngine** | Novel application | Post-execution regret computation against unchosen alternatives for systematic decision learning |
 
 ## What We Explicitly Do NOT Claim As Novel
 
@@ -48,8 +49,8 @@ These techniques are used in Jarvis but are well-established in existing researc
 - **Probabilistic intent recognition** — mature robotics research (Jain et al., IROS 2018)
 - **Absence/gap detection in LLMs** — multiple published papers (arXiv:2512.10273)
 - **Per-user preference learning** — PReF, PLUS methods published
-- **Tool reliability monitoring** — LangChain health-aware middleware in development
-- **Side-effect verification** — Verity, SafeAgent address this space
+- **Basic tool retry/fallback** — LangChain has manual retry configuration (our novelty is the auto-generated contracts and unified pipeline)
+- **Exactly-once execution** — Verity, SafeAgent address this (our novelty is independent effect verification, not deduplication)
 
 Our contribution is the specific integration of these techniques into a unified cognitive architecture, not the individual techniques themselves.
 
